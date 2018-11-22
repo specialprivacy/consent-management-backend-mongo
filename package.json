@@ -2,14 +2,15 @@
   "name": "consent-management-backend-ward",
   "description": "The consent management backend service for Special",
   "version": "0.0.0",
+  "license": "ISC",
   "homepage": "",
   "main": "src",
   "keywords": [
     "feathers"
   ],
   "author": {
-    "name": "",
-    "email": ""
+    "name": "Ward Delabastita",
+    "email": "ward.delabastita@tenforce.com"
   },
   "contributors": [],
   "bugs": {},
