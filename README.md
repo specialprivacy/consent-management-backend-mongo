@@ -54,3 +54,10 @@ __0.1.0__
 Copyright (c) 2018
 
 Licensed under the [MIT license](LICENSE).
+
+## Mongo
+- https://docs.mongodb.com/manual/tutorial/convert-standalone-to-replica-set/
+- https://medium.com/@thakkaryash94/mongodb-3-6-change-streams-example-with-node-js-2b9a85652c50
+
+- mongod --port 27017 --dbpath ./mdata --smallfiles --replSet mongo-repl
+- 

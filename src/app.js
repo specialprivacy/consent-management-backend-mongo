@@ -20,6 +20,8 @@ const mongoose = require("./mongoose")
 
 const app = express(feathers())
 
+const initWatchers = require("./initWatchers")
+
 // Load app configuration
 app.configure(configuration())
 // Enable security, CORS, compression, favicon and body parsing
@@ -38,6 +40,7 @@ app.configure(express.rest())
 
 app.configure(mongoose)
 
+initWatchers(app)
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware)
