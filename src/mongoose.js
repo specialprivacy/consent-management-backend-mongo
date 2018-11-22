@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 
 module.exports = function (app) {
     mongoose.connect(app.get("mongodb"), {
-  mongoose.Promise = global.Promise
+        useCreateIndex: true,
+        useNewUrlParser: true
     })
     mongoose.Promise = global.Promise
 

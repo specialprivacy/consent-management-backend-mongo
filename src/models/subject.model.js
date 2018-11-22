@@ -8,7 +8,7 @@ module.exports = function (app) {
     const subject = new Schema({
         _id: { type: Schema.Types.ObjectId, required: false, auto: true },
         name: { type: String, required: true },
-  }, {
+        policies: [{ type: Schema.Types.ObjectId, ref: "policy" }]
     }, {
         timestamps: true
     })
