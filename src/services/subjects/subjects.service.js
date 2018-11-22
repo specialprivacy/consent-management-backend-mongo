@@ -4,19 +4,19 @@ const createModel = require("../../models/subject.model")
 const hooks = require("./subjects.hooks")
 
 module.exports = function (app) {
-  const Model = createModel(app)
-  const paginate = app.get("paginate")
+    const Model = createModel(app)
+    const paginate = app.get("paginate")
 
-  const options = {
-    Model,
-    paginate
-  }
+    const options = {
+        Model,
+        paginate
+    }
 
-  // Initialize our service with any options it requires
-  app.use("/subjects", createService(options))
+    // Initialize our service with any options it requires
+    app.use("/subjects", createService(options))
 
-  // Get our initialized service so that we can register hooks
-  const service = app.service("subjects")
+    // Get our initialized service so that we can register hooks
+    const service = app.service("subjects")
 
-  service.hooks(hooks)
+    service.hooks(hooks)
 }
