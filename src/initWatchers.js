@@ -4,6 +4,7 @@ module.exports = function(app) {
     const mongoConnection = app.get("mongodb")
 
     // https://docs.mongodb.com/manual/changeStreams/
+    // https://docs.mongodb.com/manual/reference/change-events/
     MongoClient
         .connect(mongoConnection, { useNewUrlParser: true })
         .then(client => {
