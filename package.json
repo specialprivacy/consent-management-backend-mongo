@@ -1,5 +1,5 @@
 {
-  "name": "consent-management-backend-ward",
+  "name": "consent-management-backend-mongo",
   "description": "The consent management backend service for Special",
   "version": "0.0.0",
   "license": "ISC",
