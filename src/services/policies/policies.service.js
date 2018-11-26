@@ -9,7 +9,7 @@ module.exports = function (app) {
 
     const options = {
         Model,
-        paginate
+        paginate,
     }
 
     // Initialize our service with any options it requires
@@ -30,12 +30,12 @@ module.exports = function (app) {
             find: [
                 function(context) {
                     context.params.query.applicationId = context.params.route.applicationId
-                }
+                },
             ],
             create: [mapApplicationIdToData],
             update: [mapApplicationIdToData],
             patch: [mapApplicationIdToData],
-        }
+        },
     })
   
     app.use("/subjects/:subjectId/policies", policiesService)
@@ -49,12 +49,12 @@ module.exports = function (app) {
             find: [
                 function(context) {
                     context.params.query.subjectId = context.params.route.subjectId
-                }
+                },
             ],
             create: [mapSubjectIdToData],
             update: [mapSubjectIdToData],
             patch: [mapSubjectIdToData],
-        }
+        },
     })
   
     // Get our initialized service so that we can register hooks

@@ -14,7 +14,7 @@ module.exports = function (app) {
         recipientCollection: { type: String, required: true },
         explanation: { type: String, required: true }
     }, {
-        timestamps: true
+        timestamps: true,
     })
 
     return mongooseClient.model("policy", policy)

@@ -10,7 +10,7 @@ module.exports = function (app) {
         name : { type: String, required: true },
         policies: [{ type: Schema.Types.ObjectId, ref: "policy" }]
     }, {
-        timestamps: true
+        timestamps: true,
     })
 
     return mongooseClient.model("application", application)
