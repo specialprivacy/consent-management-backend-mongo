@@ -1,4 +1,4 @@
-# consent-management-backend-ward
+# consent-management-backend-mongo
 
 > The consent management backend service for Special
 
@@ -14,7 +14,7 @@ Getting up and running is as easy as 1, 2, 3.
 2. Install your dependencies
 
     ```
-    cd path/to/consent-management-backend-ward; npm install
+    cd path/to/consent-management-backend-mongo; npm install
     ```
 
 3. Start your app
