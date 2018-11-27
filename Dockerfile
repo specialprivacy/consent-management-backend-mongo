@@ -34,11 +34,6 @@ CMD ["npm", "start"]
 COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/node_modules /app/node_modules
 
-COPY src/*.js /app/src/
-COPY src/hooks /app/src/hooks
-COPY src/middleware /app/src/middleware
-COPY src/models /app/src/models
-COPY src/services /app/src/services
-COPY test /app/test
+COPY ./ /app
 
 RUN if [ ${NODE_ENV} == "production" ]; then rm -rf /app/test; fi
