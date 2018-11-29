@@ -1,6 +1,4 @@
 /* eslint-disable no-console */
-console.log("test ward")
-
 const logger = require("./logger")
 const app = require("./app")
 const port = app.get("port")
