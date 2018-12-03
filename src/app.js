@@ -20,6 +20,7 @@ const mongoose = require("./mongoose")
 
 const app = express(feathers())
 
+const initData = require("./initData")
 const initWatchers = require("./initWatchers")
 
 // Load app configuration
@@ -37,10 +38,8 @@ app.use("/", express.static(app.get("public")))
 // Set up Plugins and providers
 app.configure(express.rest())
 
-
+// Configure Mongoose
 app.configure(mongoose)
-
-initWatchers(app)
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware)
@@ -54,5 +53,11 @@ app.use(express.notFound())
 app.use(express.errorHandler({ logger }))
 
 app.hooks(appHooks)
+
+// insert initial data into app
+initData(app)
+
+// init db changes watchers
+initWatchers(app)
 
 module.exports = app
