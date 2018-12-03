@@ -6,7 +6,7 @@
     "default": 10,
     "max": 50
   },
-  "mongodb": "mongodb://mongo-rs-0:27017/consent-management?replicaSet=rs",
+  "mongodb": "mongodb://mongo-db:27017/consent-management?replicaSet=rs",
   "mongodbName": "consent-management",
   "mongodbApplicationsCollection": "applications",
   "mongodbPoliciesCollection": "policies",
