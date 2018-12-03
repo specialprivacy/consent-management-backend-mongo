@@ -12,7 +12,7 @@ module.exports = function (app) {
         processingCollection: { type: String, required: true },
         purposeCollection: { type: String, required: true },
         recipientCollection: { type: String, required: true },
-        explanation: { type: String, required: true }
+        explanation: { type: String, required: true },
     }, {
         timestamps: true,
     })
