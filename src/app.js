@@ -55,9 +55,11 @@ app.use(express.errorHandler({ logger }))
 app.hooks(appHooks)
 
 // insert initial data into app
-initData(app)
+initData(app).then(() =>
+    
+    // init db changes watchers
+    initWatchers(app)
+)
 
-// init db changes watchers
-initWatchers(app)
 
 module.exports = app

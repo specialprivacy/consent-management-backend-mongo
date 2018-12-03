@@ -23,7 +23,7 @@ module.exports = async function(app) {
         "recipientCollection": "http://www.specialprivacy.eu/vocabs/recipientsSame",
         "explanation": "I consent to the copying of my derived data in Europe-like countries for the purpose of administration.",
     })
-
+    
     const policy3 = await policiesService.create({
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Computer",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#ThirdParty",
@@ -95,12 +95,15 @@ module.exports = async function(app) {
         "recipientCollection": "http://www.specialprivacy.eu/vocabs/recipientsOtherRecipient",
         "explanation": "I consent to the aggregation of my derived data on third-party servers for the purpose of charity.",
     })
-
+    
+    await Promise.all([policy1, policy2, policy3, policy4, policy5, policy6, policy7, policy8, policy9, policy10])
+    
     logger.info("creating initial policies - finished")
     
     
     logger.info("creating initial applications - started")
-    await applicationsService.create({
+    
+    const application1 = await applicationsService.create({
         "name": "Application A",
         "policies":
             [
@@ -112,7 +115,8 @@ module.exports = async function(app) {
                 policy6._id,
             ],
     })
-    await applicationsService.create({
+    
+    const application2 = await applicationsService.create({
         "name": "Application B",
         "policies":
             [
@@ -124,6 +128,9 @@ module.exports = async function(app) {
                 policy10._id,
             ],
     })
+    
+    const applicationsCreated =  await Promise.all([application1, application2])
     logger.info("creating initial applications - finished")
     
+    return applicationsCreated
 }
