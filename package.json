@@ -30,6 +30,9 @@
     "mocha": "mocha test/ --recursive --exit"
   },
   "dependencies": {
+    "@feathersjs/authentication": "^2.1.13",
+    "@feathersjs/authentication-jwt": "^2.0.7",
+    "@feathersjs/authentication-oauth2": "^1.2.5",
     "@feathersjs/configuration": "^2.0.4",
     "@feathersjs/errors": "^3.3.4",
     "@feathersjs/express": "^1.2.7",
@@ -41,6 +44,8 @@
     "mongodb": "^3.1.10",
     "mongodb-core": "^3.1.9",
     "mongoose": "^5.2.7",
+    "passport-auth0": "^1.1.0",
+    "passport-openid-connect": "^0.1.0",
     "serve-favicon": "^2.5.0",
     "winston": "^3.0.0"
   },

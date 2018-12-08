@@ -1,10 +1,19 @@
-
+const logger = require("../../logger")
+const { authenticate } = require("@feathersjs/authentication").hooks
 
 module.exports = {
     before: {
-        all: [],
+        all: [
+            authenticate("jwt"),
+        ],
         find: [],
-        get: [],
+        get: [
+            function(context) {
+                if (context.id === "current") {
+                    logger.info("before hook /users/current")    
+                }
+            }
+        ],
         create: [],
         update: [],
         patch: [],

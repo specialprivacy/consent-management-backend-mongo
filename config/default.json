@@ -10,5 +10,14 @@
   "mongodbName": "consent-management",
   "mongodbApplicationsCollection": "applications",
   "mongodbPoliciesCollection": "policies",
-  "mongodbSubjectsCollection": "subjects"
+  "mongodbSubjectsCollection": "users",
+  "authentication": {
+    "secret": "consent-management-backend",
+    "cookie": {
+      "enabled": true,
+      "name": "feathers-jwt",
+      "httpOnly": false,
+      "secure": false
+    }
+  }
 }

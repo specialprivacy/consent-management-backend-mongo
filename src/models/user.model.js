@@ -5,7 +5,7 @@
 module.exports = function (app) {
     const mongooseClient = app.get("mongooseClient")
     const { Schema } = mongooseClient
-    const subject = new Schema({
+    const user = new Schema({
         _id: { type: Schema.Types.ObjectId, required: false, auto: true },
         name: { type: String, required: true },
         policies: [{ type: Schema.Types.ObjectId, ref: "policy" }],
@@ -13,5 +13,5 @@ module.exports = function (app) {
         timestamps: true,
     })
 
-    return mongooseClient.model("subject", subject)
+    return mongooseClient.model("user", user)
 }
