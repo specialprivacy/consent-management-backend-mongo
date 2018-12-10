@@ -17,7 +17,8 @@ module.exports = function(app) {
             const applicationsStream = applicationsCollection.watch({ fullDocument: "updateLookup" })
             applicationsStream.on("change", function(change) {
                 logger.info("change happened on applications stream")
-                logger.info(change)
+                llogger.info("of type:" + change.operationType)
+                logger.info("on document with id:" + change.documentKey._id)
             })
             
             // subjects
@@ -25,7 +26,8 @@ module.exports = function(app) {
             const subjectsStream = subjectsCollection.watch({ fullDocument: "updateLookup" })
             subjectsStream.on("change", function(change) {
                 logger.info("change happened on subjects stream")
-                logger.info(change)
+                logger.info("of type:" + change.operationType)
+                logger.info("on document with id:" + change.documentKey._id)
             })
 
             // policies
@@ -33,7 +35,8 @@ module.exports = function(app) {
             const policiesStream = policiesCollection.watch({ fullDocument: "updateLookup" })
             policiesStream.on("change", function(change) {
                 logger.info("change happened on policies stream")
-                logger.info(change)
+                logger.info("of type:" + change.operationType)
+                logger.info("on document with id:" + change.documentKey._id)
             })
         })
 }

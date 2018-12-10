@@ -1,10 +1,12 @@
 const logger = require("./logger")
 
 module.exports = async function(app) {
-    const policiesService = app.service("policies")
-    const applicationsService = app.service("applications")
     
     logger.info("creating initial policies - started")
+    const policiesService = app.service("policies")
+
+    // remove all previous policies
+    await policiesService.remove(null)
     
     const policy1 = await policiesService.create({
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Anonymized",
@@ -102,6 +104,10 @@ module.exports = async function(app) {
     
     
     logger.info("creating initial applications - started")
+    const applicationsService = app.service("applications")
+
+    // remove all previous applications
+    await applicationsService.remove(null)
     
     const application1 = await applicationsService.create({
         "name": "Application A",
@@ -129,8 +135,28 @@ module.exports = async function(app) {
             ],
     })
     
-    const applicationsCreated =  await Promise.all([application1, application2])
+    await Promise.all([application1, application2])
     logger.info("creating initial applications - finished")
     
-    return applicationsCreated
+    
+    logger.info("creating initial subjects - started")
+    const subjectsService = app.service("subjects")
+
+    // remove all previous subjects
+    await subjectsService.remove(null)
+
+    const subject1 = await subjectsService.create({
+        "email_verified": false,
+        "preferred_username": "antoine",
+    })
+
+    const subject2 = await subjectsService.create({
+        "email_verified": false,
+        "preferred_username": "bernard",
+    })
+
+    const subjectsCreated =  await Promise.all([subject1, subject2])
+    logger.info("creating initial subjects - finished")
+
+    return subjectsCreated
 }
