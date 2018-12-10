@@ -21,11 +21,11 @@ module.exports = function(app) {
                 logger.info("on document with id:" + change.documentKey._id)
             })
             
-            // subjects
-            const subjectsCollection = db.collection(app.get("mongodbSubjectsCollection"))
-            const subjectsStream = subjectsCollection.watch({ fullDocument: "updateLookup" })
-            subjectsStream.on("change", function(change) {
-                logger.info("change happened on subjects stream")
+            // users
+            const usersCollection = db.collection(app.get("mongodbUsersCollection"))
+            const usersStream = usersCollection.watch({ fullDocument: "updateLookup" })
+            usersStream.on("change", function(change) {
+                logger.info("change happened on users stream")
                 logger.info("of type:" + change.operationType)
                 logger.info("on document with id:" + change.documentKey._id)
             })

@@ -10,5 +10,5 @@
   "mongodbName": "consent-management",
   "mongodbApplicationsCollection": "applications",
   "mongodbPoliciesCollection": "policies",
-  "mongodbSubjectsCollection": "subjects"
+  "mongodbUsersCollection": "users"
 }

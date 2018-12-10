@@ -18,7 +18,7 @@ module.exports = function (app) {
     // Register the service on the necessary routes
     app.use("/policies", policiesService)
   
-    // Register the policiesService on the nested applications & subjects routes
+    // Register the policiesService on the nested applications & users routes
     app.use("/applications/:applicationId/policies", policiesService)
     function mapApplicationIdToData(context) {
         if(context.data && context.params.route.applicationId) {
@@ -38,22 +38,22 @@ module.exports = function (app) {
         },
     })
   
-    app.use("/subjects/:subjectId/policies", policiesService)
-    function mapSubjectIdToData(context) {
-        if(context.data && context.params.route.subjectId) {
-            context.data.subjectId = context.params.route.subjectId
+    app.use("/users/:userId/policies", policiesService)
+    function mapUserIdToData(context) {
+        if(context.data && context.params.route.userId) {
+            context.data.userId = context.params.route.userId
         }
     }
-    app.service("/subjects/:subjectId/policies").hooks({
+    app.service("/users/:userId/policies").hooks({
         before: {
             find: [
                 function(context) {
-                    context.params.query.subjectId = context.params.route.subjectId
+                    context.params.query.userId = context.params.route.userId
                 },
             ],
-            create: [mapSubjectIdToData],
-            update: [mapSubjectIdToData],
-            patch: [mapSubjectIdToData],
+            create: [mapUserIdToData],
+            update: [mapUserIdToData],
+            patch: [mapUserIdToData],
         },
     })
   

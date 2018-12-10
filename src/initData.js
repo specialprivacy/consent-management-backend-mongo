@@ -139,24 +139,24 @@ module.exports = async function(app) {
     logger.info("creating initial applications - finished")
     
     
-    logger.info("creating initial subjects - started")
-    const subjectsService = app.service("subjects")
+    logger.info("creating initial users - started")
+    const usersService = app.service("users")
 
-    // remove all previous subjects
-    await subjectsService.remove(null)
+    // remove all previous users
+    await usersService.remove(null)
 
-    const subject1 = await subjectsService.create({
+    const user1 = await usersService.create({
         "email_verified": false,
         "preferred_username": "antoine",
     })
 
-    const subject2 = await subjectsService.create({
+    const user2 = await usersService.create({
         "email_verified": false,
         "preferred_username": "bernard",
     })
 
-    const subjectsCreated =  await Promise.all([subject1, subject2])
-    logger.info("creating initial subjects - finished")
+    const usersCreated =  await Promise.all([user1, user2])
+    logger.info("creating initial users - finished")
 
-    return subjectsCreated
+    return usersCreated
 }
