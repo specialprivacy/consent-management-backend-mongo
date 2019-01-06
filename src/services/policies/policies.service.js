@@ -1,7 +1,9 @@
 // Initializes the `policies` service on path `/policies`
-const createService = require("feathers-mongoose")
+const checkUserAccess = require("../../hooks/checkUserAccess")
 const createModel = require("../../models/policy.model")
+const createService = require("feathers-mongoose")
 const hooks = require("./policies.hooks")
+const logger = require("../../logger")
 
 module.exports = function (app) {
     const Model = createModel(app)
@@ -9,6 +11,7 @@ module.exports = function (app) {
 
     const options = {
         Model,
+        multi: true,
         paginate,
     }
 
@@ -29,6 +32,7 @@ module.exports = function (app) {
         before: {
             find: [
                 function(context) {
+                    logger.info("get application policies hook")
                     context.params.query.applicationId = context.params.route.applicationId
                 },
             ],
@@ -45,9 +49,13 @@ module.exports = function (app) {
         }
     }
     app.service("/users/:userId/policies").hooks({
+        // maybe check not implemented
         before: {
             find: [
+                // checkUserAccess,
                 function(context) {
+                    logger.info("get user policies hook")
+                    logger.info(JSON.stringify(context))
                     context.params.query.userId = context.params.route.userId
                 },
             ],

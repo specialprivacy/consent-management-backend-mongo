@@ -39,6 +39,7 @@ module.exports = {
                 userResult.links = {
                     policies: "/users/current/policies",
                 }
+                delete userResult.policies
                 context.result = {
                     users: [ userResult ],
                 }

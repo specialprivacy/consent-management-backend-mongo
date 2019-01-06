@@ -13,7 +13,15 @@ module.exports = {
 
     after: {
         all: [],
-        find: [],
+        find: [
+            // return what frontend expects to get
+            function(context) {
+                const policiesResult = context.result
+                context.result = {
+                    policies: [ ...policiesResult.data ],
+                }
+            },
+        ],
         get: [],
         create: [],
         update: [],

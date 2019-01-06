@@ -17,7 +17,7 @@ module.exports = function(app) {
             const applicationsStream = applicationsCollection.watch({ fullDocument: "updateLookup" })
             applicationsStream.on("change", function(change) {
                 logger.info("change happened on applications stream")
-                llogger.info("of type:" + change.operationType)
+                logger.info("of type:" + change.operationType)
                 logger.info("on document with id:" + change.documentKey._id)
             })
             

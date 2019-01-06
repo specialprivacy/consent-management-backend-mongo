@@ -22,9 +22,9 @@ ENV SERVER_HOST=localhost \
   KAFKA_FULL_POLICIES_TOPIC=full-policies \
   AUTH_CLIENT_ID=special-platform \
   AUTH_CLIENT_SECRET=special-platform-secret \
-  AUTH_LOGIN_ENDPOINT=http://localhost:8080/auth/realms/master/protocol/openid-connect/auth \
-  AUTH_TOKEN_ENDPOINT=http://localhost:8080/auth/realms/master/protocol/openid-connect/token \
-  AUTH_USERINFO_ENDPOINT=http://localhost:8080/auth/realms/master/protocol/openid-connect/userinfo
+  AUTH_LOGIN_ENDPOINT=https://demonstrator-special.tenforce.com/auth/realms/special/protocol/openid-connect/auth \
+  AUTH_TOKEN_ENDPOINT=https://demonstrator-special.tenforce.com/auth/realms/special/protocol/openid-connect/token \
+  AUTH_USERINFO_ENDPOINT=https://demonstrator-special.tenforce.com/auth/realms/special/protocol/openid-connect/userinfo
 
 
 EXPOSE 80
