@@ -6,9 +6,10 @@ module.exports = function (app) {
     const mongooseClient = app.get("mongooseClient")
     const { Schema } = mongooseClient
     const application = new Schema({
-        _id: { type: Schema.Types.ObjectId, required: false, auto: true },
+        _id: { type: String, required: true, auto: false },
+        id: { type: String, required: true },
         name : { type: String, required: true },
-        policies: [{ type: Schema.Types.ObjectId, ref: "policy" }],
+        policies: [{ type: String, ref: "policy" }],
     }, {
         timestamps: true,
     })

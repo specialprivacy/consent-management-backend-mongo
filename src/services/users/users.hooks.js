@@ -1,28 +1,45 @@
-
+const logger = require("../../logger")
 
 module.exports = {
     before: {
         all: [],
         find: [],
         get: [
-            // replace current by other other user
-            // user should get by auth
-            // but can be faked at the moment
-            async function(context) {
+            function(context) {
+                // logger.info("before get user hook")
+                // logger.info(JSON.stringify(context))
                 if (context.id === "current") {
+                    context.id = context.params.userId
+                }
+                return context
+            },
+        ],
+        create: [],
+        update: [
+            async function(context) {
+                // logger.info("before update user hook")
+                // logger.info(JSON.stringify(context))
+                if (context.id === "current") {
+                    // logger.info("before update user hook - current")
+                    const userId = context.params.userId
                     const usersService = context.service
-                    return usersService.find({}).then(allUsers => {
-                        const firstUser = allUsers.data[0]
-                        context.id = firstUser._id
+                    return usersService.patch(userId, { policies: context.data.user.policies }).then(result => {
+                        // logger.info("after patch current user")
+                        // logger.info(JSON.stringify(result))
+                        context.result = { 
+                            email_verified: result.email_verified,
+                            id: "current",
+                            policies: result.policies,
+                            preferred_username: result.preferred_username,
+                        }
                         return context
                     })
                 } else {
+                    // logger.info("before update user hook - not current")
                     return context
                 }
             },
         ],
-        create: [],
-        update: [],
         patch: [],
         remove: [],
     },
@@ -39,7 +56,6 @@ module.exports = {
                 userResult.links = {
                     policies: "/users/current/policies",
                 }
-                delete userResult.policies
                 context.result = {
                     users: [ userResult ],
                 }

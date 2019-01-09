@@ -3,7 +3,7 @@ const logger = require("../logger")
 
 module.exports = function (context) {
     try {
-        logger.info("check user access hook")
+        // logger.info("check user access hook") where to add?
         // logger.info(JSON.stringify(context))
         // let reqId = req.params.id
         // let userId = req.session.user.id

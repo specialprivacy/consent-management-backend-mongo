@@ -32,7 +32,7 @@ module.exports = function (app) {
         before: {
             find: [
                 function(context) {
-                    logger.info("get application policies hook")
+                    // logger.info("get application policies hook")
                     context.params.query.applicationId = context.params.route.applicationId
                 },
             ],
@@ -53,15 +53,37 @@ module.exports = function (app) {
         before: {
             find: [
                 // checkUserAccess,
-                function(context) {
-                    logger.info("get user policies hook")
-                    logger.info(JSON.stringify(context))
-                    context.params.query.userId = context.params.route.userId
+                async function(context) {
+                    // logger.info("before find user policies hook")
+                    // logger.info(JSON.stringify(context))
+                    const usersService = context.app.service("users")
+                    const userId  = context.params.userId
+                    return usersService.get(userId).then(userResult => {
+                        // logger.info("after patch current user")
+                        // logger.info(JSON.stringify(userResult))
+                        context.result = {
+                            policies: userResult.data[0].policies,
+                        }
+                        return context
+                    })
                 },
             ],
             create: [mapUserIdToData],
             update: [mapUserIdToData],
             patch: [mapUserIdToData],
+        },
+        after : {
+            find: [
+                function(context) {
+                    // return what frontend expects to get
+                    // logger.info("after find user policies hook")
+                    // logger.info(JSON.stringify(context))
+                    const policiesResult = context.result
+                    context.result = {
+                        policies: [ ...policiesResult.data],
+                    }
+                },
+            ],
         },
     })
   

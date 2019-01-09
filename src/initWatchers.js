@@ -3,6 +3,8 @@ const MongoClient = require("mongodb").MongoClient
 
 module.exports = function(app) {
     const mongoConnection = app.get("mongodb")
+    
+    // probably we won't have to listen to all of these streams :-)
 
     // https://docs.mongodb.com/manual/changeStreams/
     // https://docs.mongodb.com/manual/reference/change-events/
@@ -26,8 +28,9 @@ module.exports = function(app) {
             const usersStream = usersCollection.watch({ fullDocument: "updateLookup" })
             usersStream.on("change", function(change) {
                 logger.info("change happened on users stream")
-                logger.info("of type:" + change.operationType)
-                logger.info("on document with id:" + change.documentKey._id)
+                logger.info("of type: " + change.operationType)
+                logger.info("on document with id: " + change.documentKey._id)
+                logger.info("new document values: " + JSON.stringify(change.fullDocument))
             })
 
             // policies

@@ -6,11 +6,11 @@ module.exports = function (app) {
     const mongooseClient = app.get("mongooseClient")
     const { Schema } = mongooseClient
     const user = new Schema({
-        _id: { type: Schema.Types.ObjectId, required: false, auto: true }, // internal mongodb id
-        id: { type: String, required: true }, // keycloak id
-        preferred_username: { type: String, required: true },
+        _id: { type: String, required: false, auto: false },
+        id: { type: String, required: false },
+        preferred_username: { type: String, required: false },
         email_verified: { type: Boolean, required: false },
-        policies: [{ type: Schema.Types.ObjectId, ref: "policy" }],
+        policies: [{ type: String, ref: "policy" }],
     }, {
         timestamps: true,
     })
