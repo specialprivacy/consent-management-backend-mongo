@@ -32,6 +32,7 @@ module.exports = function(app) {
                 logger.info("change happened on users stream")
                 logger.info("of type: " + change.operationType)
                 logger.info("on document with id: " + change.documentKey._id)
+                logger.info(JSON.stringify(change))
                 logger.info("new document values: " + JSON.stringify(change.fullDocument))
             })
 

@@ -127,7 +127,7 @@ module.exports = function (app) {
                 // logger.info("before save and stuff")
                 // logger.info(JSON.stringify(user))
                 const service = app.service("users")
-                service.find(user.id).then(result => {
+                service.find({ query: { id: user.id }}).then(result => {
                     // logger.info("result find by id")
                     // logger.info(JSON.stringify(result))
                     if (result.users.length === 0) {
