@@ -21,6 +21,7 @@ const mongoose = require("./mongoose")
 const app = express(feathers())
 
 const initData = require("./initData")
+const initKafka = require("./initKafka")
 const initWatchers = require("./initWatchers")
 
 // Load app configuration
@@ -56,10 +57,10 @@ app.hooks(appHooks)
 
 // insert initial data into app
 initData(app).then(() =>
-    
-    // init db changes watchers
-    initWatchers(app)
+    initKafka(() => {
+        // init db changes watchers
+        initWatchers(app)
+    })
 )
-
 
 module.exports = app

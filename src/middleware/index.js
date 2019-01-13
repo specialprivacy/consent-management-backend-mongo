@@ -130,7 +130,7 @@ module.exports = function (app) {
                 service.find(user.id).then(result => {
                     // logger.info("result find by id")
                     // logger.info(JSON.stringify(result))
-                    if (result.total === 0) {
+                    if (result.users.length === 0) {
                         // user did not exist yet
                         // save with empty set of policies
                         // logger.info("auth user create new")
@@ -142,11 +142,11 @@ module.exports = function (app) {
                             res.redirect(state.referer)
                             return user
                         })
-                    } else if (result.total === 1) {
+                    } else if (result.users.length === 1) {
                         // user already existed
                         // update info just received
                         // logger.info("auth user update")
-                        service.patch(result.data[0]._id, { ...user }).then(result => {
+                        service.patch(result.users[0]._id, { ...user }).then(() => {
                             // logger.info("after patch")
                             // logger.info(JSON.stringify(result))
                             req.session.user = user
@@ -155,8 +155,7 @@ module.exports = function (app) {
                             return user
                         })
                     } else {
-                        // more than one user found with id
-                        // something went wrong
+                        logger.info(`more than 1 user found with the same id: ${user.id}`)
                     }
                 })
             })

@@ -17,8 +17,8 @@ module.exports = {
         create: [],
         update: [
             async function(context) {
-                // logger.info("before update user hook")
-                // logger.info(JSON.stringify(context))
+                logger.info("before update user hook")
+                logger.info(JSON.stringify(context))
                 if (context.id === "current") {
                     // logger.info("before update user hook - current")
                     const userId = context.params.userId
@@ -46,7 +46,17 @@ module.exports = {
 
     after: {
         all: [],
-        find: [],
+        find: [
+            function(context) {
+                // logger.info("after find users")
+                // logger.info(JSON.stringify(context))
+                const userResult = context.result.data
+                context.result = {
+                    users: [ ...userResult ],
+                }
+                return context
+            }
+        ],
         get: [
             // return what frontend expects to get
             function(context) {

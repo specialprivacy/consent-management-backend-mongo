@@ -13,7 +13,18 @@ module.exports = {
 
     after: {
         all: [],
-        find: [],
+        find: [
+            // return what frontend expects to get
+            function(context) {
+                const applications = context.result.data.map(a => ({
+                    ...a,
+                    links: {policies: "/applications/" + a.id + "/policies"},
+                }))
+                context.result = {
+                    applications,
+                }
+            },
+        ],
         get: [],
         create: [],
         update: [],
