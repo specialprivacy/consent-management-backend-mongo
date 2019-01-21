@@ -12,7 +12,7 @@ module.exports = function (app) {
         email_verified: { type: Boolean, required: false },
         policies: [{ type: String, ref: "policy" }],
     }, {
-        timestamps: true,
+        timestamps: false,
     })
 
     return mongooseClient.model("user", user)

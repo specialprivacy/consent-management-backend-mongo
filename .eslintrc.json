@@ -33,6 +33,7 @@
       "error",
       "never"
     ],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "eol-last": "error"
   }
 }

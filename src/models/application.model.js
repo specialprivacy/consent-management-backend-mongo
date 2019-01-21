@@ -11,7 +11,7 @@ module.exports = function (app) {
         name : { type: String, required: true },
         policies: [{ type: String, ref: "policy" }],
     }, {
-        timestamps: true,
+        timestamps: false,
     })
 
     return mongooseClient.model("application", application)

@@ -18,7 +18,7 @@ module.exports = {
             function(context) {
                 const applications = context.result.data.map(a => ({
                     ...a,
-                    links: {policies: "/applications/" + a.id + "/policies"},
+                    links: { policies: "/applications/" + a.id + "/policies" },
                 }))
                 context.result = {
                     applications,

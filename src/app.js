@@ -57,7 +57,7 @@ app.hooks(appHooks)
 
 // insert initial data into app
 initData(app).then(() =>
-    initKafka(() => {
+    initKafka(app, () => {
         // init db changes watchers
         initWatchers(app)
     })
