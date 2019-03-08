@@ -25,10 +25,10 @@ module.exports = function (app) {
         scope:["all openid"],
         state: "test",
         callbackUri: "/callback",
-        redirectUri: "/redirect",h
+        redirectUri: "/redirect",
         successRedirect: "/success",
     }))
-    
+
     //https://demonstrator-special.tenforce.com/auth/realms/special/protocol/openid-connect/auth
     // ?scope=all%20openid
     // &response_type=code
