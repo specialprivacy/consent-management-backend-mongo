@@ -17,7 +17,7 @@ ENV SERVER_HOST=localhost \
   KAFKA_TIMEOUT=60000 \
   KAFKA_VERSION_REQUEST=false \
   KAFKA_CHANGE_LOGS_TOPIC=policies-audit \
-  KAFKA_FULL_POLICIES_TOPIC=full-policies \
+  KAFKA_FULL_POLICIES_TOPIC=full-policies
 
 EXPOSE 80
 ARG NODE_ENV=development
