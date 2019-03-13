@@ -12,20 +12,12 @@ WORKDIR /app
 
 ENV SERVER_HOST=localhost \
   SERVER_PORT=80 \
-  SERVER_AUTH_CALLBACK_ENDPOINT=http://localhost/callback \
-  SESSION_SECRET=consent-management-backend \
   HTTP_MAX_SOCKETS=10 \
   KAFKA_BROKER_LIST=localhost:9092 \
   KAFKA_TIMEOUT=60000 \
   KAFKA_VERSION_REQUEST=false \
   KAFKA_CHANGE_LOGS_TOPIC=policies-audit \
   KAFKA_FULL_POLICIES_TOPIC=full-policies \
-  AUTH_CLIENT_ID=special-platform \
-  AUTH_CLIENT_SECRET=special-platform-secret \
-  AUTH_LOGIN_ENDPOINT=https://demonstrator-special.tenforce.com/auth/realms/special/protocol/openid-connect/auth \
-  AUTH_TOKEN_ENDPOINT=https://demonstrator-special.tenforce.com/auth/realms/special/protocol/openid-connect/token \
-  AUTH_USERINFO_ENDPOINT=https://demonstrator-special.tenforce.com/auth/realms/special/protocol/openid-connect/userinfo
-
 
 EXPOSE 80
 ARG NODE_ENV=development

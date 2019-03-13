@@ -5,10 +5,10 @@ module.exports = {
         all: [],
         find: [],
         get: [
-            // upsert user
+            // upsert user if current
             async function(context) {
-                logger.info("before get user")
-                logger.info(JSON.stringify(context))
+                // logger.info("before get user")
+                // logger.info(JSON.stringify(context))
                 
                 const userId = context.params.userId
                 if (userId === "current") {
@@ -16,18 +16,18 @@ module.exports = {
                     const usersService = context.service
                     
                     const result = await usersService.find({ query: { id: userObject.id }})
-                    logger.info("result find by id")
-                    logger.info(JSON.stringify(result))
+                    // logger.info("result find by id")
+                    // logger.info(JSON.stringify(result))
                     
                     if (result.users.length === 0) {
                         // user did not exist yet
                         // save with empty set of policies
-                        logger.info("auth user create new")
+                        // logger.info("auth user create new")
                         await usersService.create({ ...userObject, _id: userObject.id })
                     } else if (result.users.length === 1) {
                         // user already existed
                         // update info just received
-                        logger.info("auth user update")
+                        // logger.info("auth user update")
                         await service.patch(result.users[0]._id, { ...userObject })
                         // logger.info("after patch")
                         // logger.info(JSON.stringify(result))
