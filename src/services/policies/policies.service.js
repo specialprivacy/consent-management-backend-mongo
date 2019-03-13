@@ -1,5 +1,4 @@
 // Initializes the `policies` service on path `/policies`
-const checkUserAccess = require("../../hooks/checkUserAccess")
 const createModel = require("../../models/policy.model")
 const createService = require("feathers-mongoose")
 const hooks = require("./policies.hooks")
@@ -49,10 +48,8 @@ module.exports = function (app) {
         }
     }
     app.service("/users/:userId/policies").hooks({
-        // maybe check not implemented
         before: {
             find: [
-                // checkUserAccess,
                 async function(context) {
                     // logger.info("before find user policies hook")
                     // logger.info(JSON.stringify(context))

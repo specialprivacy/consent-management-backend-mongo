@@ -16,8 +16,6 @@ const channels = require("./channels")
 
 const mongoose = require("./mongoose")
 
-const authentication = require("./authentication")
-
 const app = express(feathers())
 
 const initData = require("./initData")
@@ -46,6 +44,7 @@ app.configure(mongoose)
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware)
+
 // Set up our services (see `services/index.js`)
 app.configure(services)
 
