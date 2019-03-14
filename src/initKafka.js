@@ -93,7 +93,7 @@ module.exports = function(application, onReady) {
             // logger.info(newPolicyIds)
 
             // get hash with all policies { policyId: policy }
-            const allPoliciesHash = await getPoliciesHash([...oldPolicyIds, ...newPolicyIds])
+            const allPoliciesHash = await getPoliciesHash([ ...oldPolicyIds, ...newPolicyIds ])
             
             // create arrays with withdrawn and added policy ids
             const withdrawnIds = oldPolicyIds.filter(item => { return !newPolicyIds.includes(item) })

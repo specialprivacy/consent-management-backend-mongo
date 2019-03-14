@@ -108,7 +108,7 @@ module.exports = async function(app) {
         "explanation": "I consent to the aggregation of my derived data on third-party servers for the purpose of charity.",
     })
     
-    await Promise.all([policy1, policy2, policy3, policy4, policy5, policy6, policy7, policy8, policy9, policy10])
+    await Promise.all([ policy1, policy2, policy3, policy4, policy5, policy6, policy7, policy8, policy9, policy10 ])
     
     logger.info("creating initial policies - finished")
     
@@ -147,7 +147,7 @@ module.exports = async function(app) {
             ],
     })
     
-    const applicationsCreated = await Promise.all([application1, application2])
+    const applicationsCreated = await Promise.all([ application1, application2 ])
     logger.info("creating initial applications - finished")
     
     return applicationsCreated

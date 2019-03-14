@@ -11,7 +11,7 @@ module.exports = function (app) {
         _id: { type: String, required: false, default: uuidv4 },
         preferred_username: { type: String, required: false },
         email_verified: { type: Boolean, required: false },
-        policies: [{ type: String, ref: "policy" }],
+        policies: [ { type: String, ref: "policy" } ],
     }, {
         timestamps: false,
         versionKey: false,

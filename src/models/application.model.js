@@ -10,7 +10,7 @@ module.exports = function (app) {
     const application = new Schema({
         _id: { type: String, required: false, default: uuidv4 },
         name : { type: String, required: true },
-        policies: [{ type: String, ref: "policy" }],
+        policies: [ { type: String, ref: "policy" } ],
     }, {
         timestamps: false,
         versionKey: false,

@@ -52,9 +52,9 @@ module.exports = function (app) {
                     }
                 },
             ],
-            create: [mapApplicationIdToData],
-            update: [mapApplicationIdToData],
-            patch: [mapApplicationIdToData],
+            create: [ mapApplicationIdToData ],
+            update: [ mapApplicationIdToData ],
+            patch: [ mapApplicationIdToData ],
         },
     })
   
@@ -82,9 +82,9 @@ module.exports = function (app) {
                     })
                 },
             ],
-            create: [mapUserIdToData],
-            update: [mapUserIdToData],
-            patch: [mapUserIdToData],
+            create: [ mapUserIdToData ],
+            update: [ mapUserIdToData ],
+            patch: [ mapUserIdToData ],
         },
         after : {
             find: [

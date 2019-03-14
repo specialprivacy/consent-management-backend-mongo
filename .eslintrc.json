@@ -25,6 +25,10 @@
       "error",
       "always"
     ],
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
     "quotes": [
       "error",
       "double"

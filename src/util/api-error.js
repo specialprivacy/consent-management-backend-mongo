@@ -12,7 +12,7 @@ class APIError extends Error {
         } else if (options.message) {
             this.message = options.message
         }
-        if (!Array.isArray(options)) options = [options]
+        if (!Array.isArray(options)) options = [ options ]
 
         this.errors = options.map(setDefaults)
     }
