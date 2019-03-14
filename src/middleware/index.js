@@ -20,6 +20,9 @@ module.exports = function (app) {
     
     const getUserFromRequest = (request) => {
         // extract user from x-userinfo header, added by Kong OIDC
+        if (!request.headers["x-userinfo"]) {
+            return {}
+        }
         const encodedUserString = request.headers["x-userinfo"]
         const decodedUserString = Buffer.from(encodedUserString, "base64").toString("ascii")
         const userObject = JSON.parse(decodedUserString)
