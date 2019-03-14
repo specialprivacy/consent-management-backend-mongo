@@ -46,7 +46,7 @@ module.exports = function(app) {
                     
                     const filteredApplications = await applicationsService.find({
                         query: {
-                            policies: { $in: [deletedPolicyId] },
+                            policies: { $in: [ deletedPolicyId ] },
                         },
                     })
                     filteredApplications.applications.forEach((application) => {
@@ -61,7 +61,7 @@ module.exports = function(app) {
                     const usersService = app.service("users")
                     const filteredUsers = await usersService.find({
                         query: {
-                            policies: { $in: [deletedPolicyId] },
+                            policies: { $in: [ deletedPolicyId ] },
                         },
                     })
                     filteredUsers.users.forEach((user) => {

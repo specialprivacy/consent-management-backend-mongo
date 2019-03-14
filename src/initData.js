@@ -10,7 +10,6 @@ module.exports = async function(app) {
     
     const policy1 = await policiesService.create({
         "_id": "d5bbb4cc-59c0-4077-9f7e-2fad74dc9998",
-        "id": "d5bbb4cc-59c0-4077-9f7e-2fad74dc9998",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Anonymized",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#EU",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Collect",
@@ -21,7 +20,6 @@ module.exports = async function(app) {
     
     const policy2 = await policiesService.create({
         "_id": "54ff9c00-1b47-4389-8390-870b2ee9a03c",
-        "id": "54ff9c00-1b47-4389-8390-870b2ee9a03c",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Derived",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#EULike",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Copy",
@@ -32,7 +30,6 @@ module.exports = async function(app) {
     
     const policy3 = await policiesService.create({
         "_id": "d308b593-a2ad-4d9f-bcc3-ff47f4acfe5c",
-        "id": "d308b593-a2ad-4d9f-bcc3-ff47f4acfe5c",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Computer",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#ThirdParty",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Move",
@@ -43,7 +40,6 @@ module.exports = async function(app) {
     
     const policy4 = await policiesService.create({
         "_id": "fcef1dbf-7b3d-4608-bebc-3f7ff6ae4f29",
-        "id": "fcef1dbf-7b3d-4608-bebc-3f7ff6ae4f29",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Activity",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#ControllerServers",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Aggregate",
@@ -54,7 +50,6 @@ module.exports = async function(app) {
     
     const policy5 = await policiesService.create({
         "_id": "be155566-7b56-4265-92fe-cb474aa0ed42",
-        "id": "be155566-7b56-4265-92fe-cb474aa0ed42",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Anonymized",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#EU",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Analyze",
@@ -65,7 +60,6 @@ module.exports = async function(app) {
     
     const policy6 = await policiesService.create({
         "_id": "8a7cf1f6-4c34-497f-8a65-4c985eb47a35",
-        "id": "8a7cf1f6-4c34-497f-8a65-4c985eb47a35",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#AudiovisualActivity",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#EULike",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Anonymize",
@@ -76,7 +70,6 @@ module.exports = async function(app) {
     
     const policy7 = await policiesService.create({
         "_id": "2f274ae6-6c2e-4350-9109-6c15e50ba670",
-        "id": "2f274ae6-6c2e-4350-9109-6c15e50ba670",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Computer",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#ThirdCountries",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Copy",
@@ -87,7 +80,6 @@ module.exports = async function(app) {
     
     const policy8 = await policiesService.create({
         "_id": "5f8d8a7b-e250-41ca-b23e-efbfd2d83911",
-        "id": "5f8d8a7b-e250-41ca-b23e-efbfd2d83911",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Content",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#OurServers",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Derive",
@@ -98,7 +90,6 @@ module.exports = async function(app) {
     
     const policy9 = await policiesService.create({
         "_id": "86371d81-30ff-49c4-897f-5e6dbc721e85",
-        "id": "86371d81-30ff-49c4-897f-5e6dbc721e85",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Demographic",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#ProcessorServers",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Move",
@@ -109,7 +100,6 @@ module.exports = async function(app) {
     
     const policy10 = await policiesService.create({
         "_id": "4d675233-279f-4b5e-8695-b0b66be4f0f9",
-        "id": "4d675233-279f-4b5e-8695-b0b66be4f0f9",
         "dataCollection": "http://www.specialprivacy.eu/vocabs/data#Derived",
         "storageCollection": "http://www.specialprivacy.eu/vocabs/locations#ThirdParty",
         "processingCollection": "http://www.specialprivacy.eu/vocabs/processing#Aggregate",
@@ -131,31 +121,29 @@ module.exports = async function(app) {
     
     const application1 = await applicationsService.create({
         "_id": "d5aca7a6-ed5f-411c-b927-6f19c36b93c3",
-        "id": "d5aca7a6-ed5f-411c-b927-6f19c36b93c3",
         "name": "Application A",
         "policies":
             [
-                policy1.id,
-                policy2.id,
-                policy3.id,
-                policy4.id,
-                policy5.id,
-                policy6.id,
+                policy1._id,
+                policy2._id,
+                policy3._id,
+                policy4._id,
+                policy5._id,
+                policy6._id,
             ],
     })
     
     const application2 = await applicationsService.create({
         "_id": "c52dcc17-89f7-4a56-8836-bad27fd15bb3",
-        "id": "c52dcc17-89f7-4a56-8836-bad27fd15bb3",
         "name": "Application B",
         "policies":
             [
-                policy5.id,
-                policy6.id,
-                policy7.id,
-                policy8.id,
-                policy9.id,
-                policy10.id,
+                policy5._id,
+                policy6._id,
+                policy7._id,
+                policy8._id,
+                policy9._id,
+                policy10._id,
             ],
     })
     

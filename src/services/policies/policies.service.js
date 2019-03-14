@@ -30,9 +30,26 @@ module.exports = function (app) {
     app.service("/applications/:applicationId/policies").hooks({
         before: {
             find: [
-                function(context) {
+                async function(context) {
                     // logger.info("get application policies hook")
-                    context.params.query.applicationId = context.params.route.applicationId
+                    // logger.info(JSON.stringify(context))
+                    if (context.params.provider === "rest") {
+                        const applicationsService = context.app.service("applications")
+                        const policiesService = context.service
+                        const applicationId  = context.params.route.applicationId
+                        const applicationResult = await applicationsService.get(applicationId)
+                        // logger.info("after get application")
+                        // logger.info(JSON.stringify(applicationResult))
+                        const policiesResult = await policiesService.find({
+                            query: { _id: { $in: [ ...applicationResult.policies ] } },
+                        })
+                        // logger.info("after get application policies")
+                        // logger.info(JSON.stringify(applicationPolicies))
+                        context.result = {
+                            policies: [ ...policiesResult.data ],
+                        }
+                        return context
+                    }
                 },
             ],
             create: [mapApplicationIdToData],
@@ -77,7 +94,7 @@ module.exports = function (app) {
                     // logger.info(JSON.stringify(context))
                     const policiesResult = context.result
                     context.result = {
-                        policies: [ ...policiesResult.data],
+                        policies: [ ...policiesResult.data ],
                     }
                 },
             ],

@@ -17,7 +17,7 @@ module.exports = {
                     
                     const usersService = context.service
                     
-                    const result = await usersService.find({ query: { id: userObject.id } })
+                    const result = await usersService.find({ query: { _id: userObject.id } })
                     // logger.info("result find by id")
                     // logger.info(JSON.stringify(result))
                     
@@ -42,6 +42,7 @@ module.exports = {
         ],
         create: [],
         update: [
+            // redirect to patch
             async function(context) {
                 // logger.info("before update user hook")
                 // logger.info(JSON.stringify(context))
@@ -108,7 +109,13 @@ module.exports = {
             },
         ],
         create: [],
-        update: [],
+        update: [
+            function(context) {
+                context.result = {
+                    user: context.result,
+                }
+            },
+        ],
         patch: [
             function(context) {
                 // logger.info("after user patch")

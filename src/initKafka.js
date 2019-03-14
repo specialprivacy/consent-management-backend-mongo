@@ -1,4 +1,5 @@
 const kafka = require("kafka-node")
+
 const logger = require("./logger")
 
 const changeLogsTopic = process.env["KAFKA_CHANGE_LOGS_TOPIC"] || "policies-audit"
@@ -24,11 +25,19 @@ module.exports = function(application, onReady) {
             randomize: true,
         },
     })
-
+    
+    client.on("error", function(error) {
+        logger.info("Kafka client error: " + JSON.stringify(error))
+    })
+    
+    client.on("ready", function() {
+        logger.info("Kafka client ready")
+    })
+    
     producer = new kafka.Producer(client)
     
     producer.on("error", function (error) {
-        logger.error({ err: error }, "Error from kafka producer")
+        logger.info("Kafka producer error: " + JSON.stringify(error))
     })
 
     producer.on("ready", async () => {
@@ -40,7 +49,7 @@ module.exports = function(application, onReady) {
             // logger.info(userPolicies)
 
             // get hash with all policies { policyId: policy }
-            const allPoliciesHash = getPoliciesHash(userPolicies)
+            const allPoliciesHash = await getPoliciesHash(userPolicies)
 
             // create change log messages
             const changeLogMessages = generateAddPolicyMessages(userId, userPolicies, allPoliciesHash)
@@ -67,7 +76,7 @@ module.exports = function(application, onReady) {
             // logger.info(userPolicies)
             
             // get hash with all policies { policyId: policy }
-            const allPoliciesHash = getPoliciesHash(userPolicies)
+            const allPoliciesHash = await getPoliciesHash(userPolicies)
 
             // create change log messages
             const changeLogMessages = generateRemovePolicyMessages(userId, userPolicies, allPoliciesHash)
@@ -84,7 +93,7 @@ module.exports = function(application, onReady) {
             // logger.info(newPolicyIds)
 
             // get hash with all policies { policyId: policy }
-            const allPoliciesHash = getPoliciesHash([...oldPolicyIds, ...newPolicyIds])
+            const allPoliciesHash = await getPoliciesHash([...oldPolicyIds, ...newPolicyIds])
             
             // create arrays with withdrawn and added policy ids
             const withdrawnIds = oldPolicyIds.filter(item => { return !newPolicyIds.includes(item) })
@@ -116,7 +125,7 @@ module.exports = function(application, onReady) {
     })
 }
 
-const generateAddPolicyMessages =(userId, addedIds, allPolicies) => {
+const generateAddPolicyMessages = (userId, addedIds, allPolicies) => {
     const messages = []
     addedIds.forEach(policyId => {
         logger.debug(`Adding policy - ${policyId} - to user - ${userId}.`)
@@ -156,13 +165,13 @@ const getPoliciesHash = async (policyIds) => {
     // fetch full policies for the ids
     const policiesArray = await policiesService.find({
         query: {
-            _id : { $in: [policyIds] },
+            _id : { $in: [ ...policyIds ] },
         },
     })
 
     // create hash { policyId: policy }
     const policies = {}
-    policiesArray.forEach(policy => {
+    policiesArray.data.forEach(policy => {
         policies[policy._id] = policy
     })
     
@@ -180,21 +189,23 @@ const postFullPolicyMessage = (userId, message) => {
 }
 
 const postMessage = (userId, message, topic) => {
-    logger.debug(`Producing message - ${message} - on topic - ${topic}.`)
     try {
+        logger.info(`Producing message - ${JSON.stringify(message)} - on topic - ${topic}.`)
         const payload = {
             topic,
             messages: message === null ? null : JSON.stringify(message),
             key: userId,
-            partition: -1,
-            timestamp: Date.now(),
+            partition: null,
+            attributes: {
+                timestamp: Date.now(),
+            },
         }
-        producer.send(payload, (err, data) => {
-            if (err) {
-                logger.error(`Producing messages failed - ${JSON.stringify(err)}`)
-                logger.error(`Producing messages failed - data: ${JSON.stringify(data)}`)
+        producer.send([ payload ], (error, data) => {
+            if (error) {
+                logger.error(`Producing messages failed - ${JSON.stringify(error)}`)
             }
         })
+    
     } catch (error) {
         logger.error(`An error occurred when trying to send message to Kafka topic (${topic}): ${JSON.stringify(error)}`)
     }
