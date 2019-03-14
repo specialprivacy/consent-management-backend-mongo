@@ -15,12 +15,12 @@ module.exports = {
                     
                     context.result = await policiesService.find({
                         query: {
-                            id: { $in: [...currentApplication.policies] }
-                        }
+                            id: { $in: [...currentApplication.policies] },
+                        },
                     })
                 }
                 return context
-            }
+            },
         ],
         get: [],
         create: [],

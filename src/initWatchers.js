@@ -46,12 +46,12 @@ module.exports = function(app) {
                     
                     const filteredApplications = await applicationsService.find({
                         query: {
-                            policies: { $in: [deletedPolicyId] }
-                        }
+                            policies: { $in: [deletedPolicyId] },
+                        },
                     })
                     filteredApplications.applications.forEach((application) => {
                         applicationsService.patch(application._id, {
-                            policies: application.policies.filter(policyId => policyId !== deletedPolicyId)
+                            policies: application.policies.filter(policyId => policyId !== deletedPolicyId),
                         }).err(e => {
                             logger.error(JSON.stringify(e))
                         })    
@@ -61,12 +61,12 @@ module.exports = function(app) {
                     const usersService = app.service("users")
                     const filteredUsers = await usersService.find({
                         query: {
-                            policies: { $in: [deletedPolicyId] }
-                        }
+                            policies: { $in: [deletedPolicyId] },
+                        },
                     })
                     filteredUsers.users.forEach((user) => {
                         usersService.patch(user._id, {
-                            policies: user.policies.filter(policyId => policyId !== deletedPolicyId)
+                            policies: user.policies.filter(policyId => policyId !== deletedPolicyId),
                         }).err(e => {
                             logger.error(JSON.stringify(e))
                         })

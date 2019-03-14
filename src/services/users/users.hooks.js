@@ -17,7 +17,7 @@ module.exports = {
                     
                     const usersService = context.service
                     
-                    const result = await usersService.find({ query: { id: userObject.id }})
+                    const result = await usersService.find({ query: { id: userObject.id } })
                     // logger.info("result find by id")
                     // logger.info(JSON.stringify(result))
                     
@@ -38,7 +38,7 @@ module.exports = {
                     }
                 }
                 return context
-            }
+            },
         ],
         create: [],
         update: [
@@ -52,18 +52,18 @@ module.exports = {
                     const usersService = context.service
             
                     return usersService.patch(userId, { policies: context.data.user.policies })
-                    .then(result => {
-                        // logger.info("after patch current user")
-                        // logger.info(JSON.stringify(result))
-                        context.result = {
-                            email_verified: result.email_verified,
-                            id: "current",
-                            policies: result.policies,
-                            preferred_username: result.preferred_username,
-                        }
-                        return context
-                    })
-                    .catch(error => logger.info(JSON.stringify(error)))
+                        .then(result => {
+                            // logger.info("after patch current user")
+                            // logger.info(JSON.stringify(result))
+                            context.result = {
+                                email_verified: result.email_verified,
+                                id: "current",
+                                policies: result.policies,
+                                preferred_username: result.preferred_username,
+                            }
+                            return context
+                        })
+                        .catch(error => logger.info(JSON.stringify(error)))
                 } else {
                     return context
                 }
@@ -75,7 +75,7 @@ module.exports = {
                 const resultBeforePatch = await usersService.get(context.id)
                 context.policiesBeforeUpdate = resultBeforePatch.users[0].policies
                 return context
-            }
+            },
         ],
         remove: [],
     },
@@ -91,7 +91,7 @@ module.exports = {
                     users: [ ...userResult ],
                 }
                 return context
-            }
+            },
         ],
         get: [
             // return what frontend expects to get
@@ -116,14 +116,14 @@ module.exports = {
                 if (!arraysAreEqual(context.policiesBeforeUpdate, context.result.policies)) {
                     context.app.handleUserPatch(context.id, context.policiesBeforeUpdate, context.result.policies)
                 }
-            }
+            },
         ],
         remove: [
             function(context) {
                 // logger.info("after user remove hook")
                 // logger.info(JSON.stringify(context))
                 context.app.handleUserDelete(context.result._id, context.result.policies)
-            }
+            },
         ],
     },
 

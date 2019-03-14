@@ -22,10 +22,10 @@ module.exports = function(application, onReady) {
             minTimeout: 500,
             maxTimeout: 1500,
             randomize: true,
-        }
+        },
     })
 
-    producer = new kafka.Producer(client);
+    producer = new kafka.Producer(client)
     
     producer.on("error", function (error) {
         logger.error({ err: error }, "Error from kafka producer")
@@ -53,7 +53,7 @@ module.exports = function(application, onReady) {
                     let simplePolicy = { ...allPoliciesHash[policyId] }
                     delete simplePolicy["explanation"]
                     return simplePolicy
-                })
+                }),
             }
 
             // post messages
@@ -98,13 +98,13 @@ module.exports = function(application, onReady) {
                     let simplePolicy = { ...allPoliciesHash[policyId] }
                     delete simplePolicy["explanation"]
                     return simplePolicy
-                })
+                }),
             }
             
             // create change log messages
             const changeLogMessages = [
                 ...generateRemovePolicyMessages(userId, withdrawnIds, allPoliciesHash),
-                ...generateAddPolicyMessages(userId, addedIds, allPoliciesHash)
+                ...generateAddPolicyMessages(userId, addedIds, allPoliciesHash),
             ]
 
             // post messages
@@ -121,7 +121,7 @@ const generateAddPolicyMessages =(userId, addedIds, allPolicies) => {
     addedIds.forEach(policyId => {
         logger.debug(`Adding policy - ${policyId} - to user - ${userId}.`)
 
-        let message = {...allPolicies[policyId]}
+        let message = { ...allPolicies[policyId] }
         message["given"] = true
         message["data-subject"] = userId
 
@@ -134,7 +134,7 @@ const generateRemovePolicyMessages = (userId, removedIds, allPolicies) => {
     const messages = []
     removedIds.forEach(policyId => {
         logger.debug(`Removing policy - ${policyId} - from user - ${userId}.`)
-        let message = {...allPolicies[policyId]}
+        let message = { ...allPolicies[policyId] }
         if (!message) {
             // Policy no longer exists in DB, checking deleted policies.
             logger.debug(`Policy deleted - ${policyId} - checking recently deleted policies`)
@@ -156,8 +156,8 @@ const getPoliciesHash = async (policyIds) => {
     // fetch full policies for the ids
     const policiesArray = await policiesService.find({
         query: {
-            _id : { $in: [policyIds] }
-        }
+            _id : { $in: [policyIds] },
+        },
     })
 
     // create hash { policyId: policy }
@@ -192,6 +192,7 @@ const postMessage = (userId, message, topic) => {
         producer.send(payload, (err, data) => {
             if (err) {
                 logger.error(`Producing messages failed - ${JSON.stringify(err)}`)
+                logger.error(`Producing messages failed - data: ${JSON.stringify(data)}`)
             }
         })
     } catch (error) {
