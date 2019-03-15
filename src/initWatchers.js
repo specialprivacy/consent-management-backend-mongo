@@ -11,7 +11,7 @@ module.exports = function(app) {
     MongoClient
         .connect(mongoConnection, { useNewUrlParser: true })
         .then(client => {
-            logger.info("Connected correctly to server")
+            logger.info("Connected correctly to MongoDB server")
             const db = client.db(app.get("mongodbName"))
             
             // users
