@@ -1,4 +1,8 @@
 const mongoose = require("mongoose")
+const logger = require("./logger")
+function sleep(millis) {
+    return new Promise(resolve => setTimeout(resolve, millis));
+}
 
 module.exports = function (app) {
     const mongoConnection = app.get("mongodb")
@@ -15,7 +19,12 @@ module.exports = function (app) {
         options.poolSize = 5
     }
     mongoose.connect(mongoConnection, options)
-    
+        .catch(async (e) => {
+        logger.error("Could not connect to MongoDB through Mongoose, exiting in 10 seconds.")
+        await sleep(10000)
+        process.exit(1)
+    })
+
     mongoose.Promise = global.Promise
 
     app.set("mongooseClient", mongoose)
