@@ -1,7 +1,7 @@
 {
   "name": "consent-management-backend-mongo",
   "description": "The consent management backend service for Special",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "ISC",
   "repository": {
     "type": "git",
