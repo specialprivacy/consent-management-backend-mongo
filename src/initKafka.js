@@ -1,4 +1,4 @@
-const kafka = require("kafka-node")
+const Kafka = require("node-rdkafka")
 
 const logger = require("./logger")
 
@@ -12,31 +12,15 @@ let producer = null
 
 module.exports = function(application, onReady) {
     app = application
-    
-    const client =  new kafka.KafkaClient({
-        autoConnect: true,
-        kafkaHost: kafkaHost,
-        connectTimeout: kafkaConnectTimeout,
-        connectRetryOptions: {
-            retries: 10,
-            factor: 2,
-            minTimeout: 500,
-            maxTimeout: 1500,
-            randomize: true,
-        },
+
+    producer = new Kafka.Producer({
+        "metadata.broker.list": kafkaHost,
+        "api.version.request": process.env["KAFKA_VERSION_REQUEST"] || false,
+        "dr_cb": true,
     })
+    producer.connect({ "timeout": kafkaConnectTimeout })
     
-    client.on("error", function(error) {
-        logger.info("Kafka client error: " + JSON.stringify(error))
-    })
-    
-    client.on("ready", function() {
-        logger.info("Kafka client ready")
-    })
-    
-    producer = new kafka.Producer(client)
-    
-    producer.on("error", function (error) {
+    producer.on("event.error", function (error) {
         logger.info("Kafka producer error: " + JSON.stringify(error))
     })
 
@@ -180,33 +164,25 @@ const getPoliciesHash = async (policyIds) => {
 
 const postChangeLogMessages = (userId, messages) => {
     for (let message of messages) {
-        postMessage(userId, message, changeLogsTopic)
+        try {
+            postMessage(userId, message, changeLogsTopic)
+        }
+        catch(error) {
+            logger.error(`Could not produce policies-audit message - ${JSON.stringify(error)}`)
+        }
     }
 }
 
 const postFullPolicyMessage = (userId, message) => {
-    postMessage(userId, message, fullPolicyTopic)
+    try {
+        postMessage(userId, message, fullPolicyTopic)
+    }
+    catch(error) {
+        logger.error(`Could not prodice full-policy message - ${JSON.stringify(error)}`)
+    }
 }
 
 const postMessage = (userId, message, topic) => {
-    try {
-        logger.info(`Producing message - ${JSON.stringify(message)} - on topic - ${topic}.`)
-        const payload = {
-            topic,
-            messages: message === null ? null : JSON.stringify(message),
-            key: userId,
-            partition: null,
-            attributes: {
-                timestamp: Date.now(),
-            },
-        }
-        producer.send([ payload ], (error, data) => {
-            if (error) {
-                logger.error(`Producing messages failed - ${JSON.stringify(error)}`)
-            }
-        })
-    
-    } catch (error) {
-        logger.error(`An error occurred when trying to send message to Kafka topic (${topic}): ${JSON.stringify(error)}`)
-    }
+    logger.info(`Producing message - ${JSON.stringify(message)} - on topic - ${topic}.`)
+    producer.produce(topic, null, message === null ? null : Buffer.from(JSON.stringify(message)), userId, Date.now())
 }
