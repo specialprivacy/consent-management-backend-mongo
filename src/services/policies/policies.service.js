@@ -2,7 +2,7 @@
 const createModel = require("../../models/policy.model")
 const createService = require("feathers-mongoose")
 const hooks = require("./policies.hooks")
-const logger = require("../../logger")
+//const logger = require("../../logger")
 
 module.exports = function (app) {
     const Model = createModel(app)
